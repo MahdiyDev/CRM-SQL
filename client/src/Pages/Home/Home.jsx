@@ -3,10 +3,23 @@ import { useState, useEffect } from 'react'
 import Modal from '../../component/Modal/Modal'
 import CourseModal from '../../component/CourseModal/CourseModal'
 import GroupModal from '../../component/GroupModal/GroupModal'
+import TeacherModal from '../../component/TeacherModal/TeacherModal'
 import { url } from '../../assets/url'
 
 function Home() {
     const [user, setUser] = useState([])
+    
+    const deleteUser = (e) => {
+        fetch(`${url}deleteUser`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({users_uid: e.target.id})
+        })
+        .catch(err => console.log(err))
+        window.location = '/' 
+    }
 
     useEffect(() => {
         fetch(`${url}users`)
@@ -15,12 +28,12 @@ function Home() {
         .catch(err => console.log(err))
     }, [])
 
-    // console.log(user);
     return (
         <div className='home'>
             <Modal />
             <CourseModal />
             <GroupModal />
+            <TeacherModal />
             <tr>
                 <th className='table' >First Name</th>
                 <th className='table' >Last Name</th>
@@ -30,6 +43,7 @@ function Home() {
                 <th className='table' >Course Price</th>
                 <th className='table' >Course Name</th>
                 <th className='table' >Phone Number</th>
+                <th className='table' >Options</th>
             </tr>
             {user.length ? user.map(e => {
                 return (
@@ -42,6 +56,9 @@ function Home() {
                         <td className='table' key={e.length}>{e.course_price}</td>
                         <td className='table' key={e.length}>{e.course_name}</td>
                         <td className='table' key={e.length}>{e.phone_number}</td>
+                        <td className='table' key={e.length}>
+                            <button onClick={deleteUser} id={e.users_uid}>delete</button>
+                        </td>
                     </tr>
                 )
             })

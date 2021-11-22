@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
-import './Modal.scss'
+import './TeacherModal.scss'
 import { url } from '../../assets/url';
 
-function Modal() {
-    const [groups, setGroups] = useState([])
+function TeacherModal() {
+    const [course, setCourse] = useState([])
     const [modal, setModal] = useState('modal-close')
     let user = {}
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
         user = {
-            first_name: inputs[0].value,
-            last_name: inputs[1].value,
-            paid_price: !inputs[2].value.length || inputs[2].value==0  ? 0 : inputs[2].value,
-            phone_number: inputs[3].value,
-            group_id: inputs[4].value        
+            first_name: inputs[10].value,
+            last_name: inputs[11].value,
+            phone_number: inputs[12].value,
+            course_uid: inputs[13].value        
         }
-        fetch(`${url}users`, {
+        fetch(`${url}teachers`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json"
@@ -28,35 +27,34 @@ function Modal() {
     }
 
     useEffect(()=> {
-        fetch(`${url}groups`)
+        fetch(`${url}course`)
         .then(res => res.json())
-        .then(data => setGroups(data))
+        .then(data => setCourse(data))
         .catch(err => console.log(err))
     },[])
 
     return (
         <>
-        <button onClick={()=>{setModal('modal')}}>Create User</button>
+        <button onClick={()=>{setModal('modal')}}>Create Teacher</button>
         <div className={modal} onClick={(e)=>e.target.classList.value === 'modal' ? setModal('modal-close') : ''}>
             <div className="crate-modal">
                 <form 
                     className='form'
                     onSubmit={handleSubmit}
                     >
-                    <h3 className='modal-title'>Create User</h3>
+                    <h3 className='modal-title'>Create Teacher</h3>
                     <input name='first_name' type="text" className='input' placeholder='First name' />
                     <input name='last_name' type="text" className='input' placeholder='Last name' />
-                    <input name='paid_price' type="text" className='input' placeholder='Paid price' />
                     <input name='phone_number' type="text" className='input' placeholder='Phone number' />
-                    <label htmlFor='group'><small>Groups</small></label>
-                    <select name='group_id' className='input' id='group'>
-                        {groups.length ? groups.map(g => {
+                    <label htmlFor='group'><small>Course</small></label>
+                    <select name='course_uid' className='input' id='group'>
+                        {course.length ? course.map(c => {
                             return (
-                                <option value={g.group_id} key={g.group_name}>{g.group_name}</option>
+                                <option value={c.course_uid} key={c.course_uid}>{c.course_name}</option>
                             )
                         }):[]}
                     </select>
-                    <button className='form_btn' type="submit">Create User</button>
+                    <button className='form_btn' type="submit">Create Teacher</button>
                 </form>
             </div>
         </div>
@@ -64,4 +62,4 @@ function Modal() {
     )
 }
 
-export default Modal;
+export default TeacherModal;

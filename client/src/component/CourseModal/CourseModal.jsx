@@ -9,8 +9,8 @@ function CourseModal() {
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
         course = {
-            course_name: inputs[6].value,
-            course_price: inputs[7].value
+            course_name: inputs[5].value,
+            course_price: inputs[6].value
         }
         fetch(`${url}course`, {
             method: "post",

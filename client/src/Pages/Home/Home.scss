@@ -8,9 +8,10 @@ $border: 1px solid rgb(100, 100, 100);
 }
 
 .table {
+    font-size: 12px;
     border-top: $border;
     border-left: $border;
-    width: 115px;
+    width: 100px;
     text-align: start;
     padding: 15px;
 }
