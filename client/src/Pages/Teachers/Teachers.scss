@@ -1,3 +1,37 @@
 .teacher {
     margin-top: 20px;
 }
+.teacher_title {
+    text-align: center;
+}
+
+.teacher_list {
+    max-width: 1180px;
+    min-width: 650px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.teacher_item {
+    border: 1px dashed #000;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px;
+}
+
+.teacher_name_wrapper {
+    min-width: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    h3 {
+        margin: 0;
+        margin-left: 5px;
+    }
+}

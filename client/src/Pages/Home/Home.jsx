@@ -1,32 +1,18 @@
 import './Home.scss'
-import { useState, useEffect } from 'react'
 import Modal from '../../component/Modal/Modal'
 import CourseModal from '../../component/CourseModal/CourseModal'
 import GroupModal from '../../component/GroupModal/GroupModal'
 import TeacherModal from '../../component/TeacherModal/TeacherModal'
-import { url } from '../../assets/url'
+import useUsers from '../../Hooks/useUsers'
 
 function Home() {
-    const [user, setUser] = useState([])
+    const user = useUsers('get')
+    const [setUserDelete] = useUsers('delete')
     
     const deleteUser = (e) => {
-        fetch(`${url}deleteUser`, {
-            method: "delete",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({users_uid: e.target.id})
-        })
-        .catch(err => console.log(err))
+        setUserDelete(e.target.id)
         window.location = '/' 
     }
-
-    useEffect(() => {
-        fetch(`${url}users`)
-        .then(res => res.json())
-        .then(data => setUser(data))
-        .catch(err => console.log(err))
-    }, [])
 
     return (
         <div className='home'>

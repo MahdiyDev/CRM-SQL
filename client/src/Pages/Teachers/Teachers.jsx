@@ -1,31 +1,26 @@
-import { useEffect, useState } from 'react';
 import './Teachers.scss'
-import { url } from '../../assets/url';
+import useTeachers from '../../Hooks/useTeachers';
 
 function Taechers() {
-    const [teacher, setTeacher] = useState([])
+    const teacher = useTeachers('get')
+    const [setTeacherDelete] = useTeachers('delete')
 
-    useEffect(()=> {
-        fetch(`${url}teachers`)
-        .then(res => res.json())
-        .then(data => setTeacher(data))
-        .catch(err => console.log(err))
-    },[])
-
-    console.log(teacher);
+    const deleteTeacher = (e) => {
+        setTeacherDelete(e.target.id)
+        window.location = '/'
+    }
 
     return (
         <div className='teacher'>
-            <ul>
-                <h2>Ustozlar</h2>
+                <h2 className='teacher_title'>Teachers</h2>
+            <ul className='teacher_list'>
                 {teacher.length ? teacher.map(t => {
                     return (
-                        <li>
-                            <h3>{t.first_name} {t.last_name}</h3>
-                            <h4>Course: {t.course_name}</h4>
-                            <ul>
-                                <li>{t.group_name}</li>
-                            </ul>
+                        <li key={t.first_name} className='teacher_item'>
+                            <span className='teacher_name_wrapper'>First Name: <h3>{t.first_name}</h3></span >
+                            <span className='teacher_name_wrapper'>Last Name: <h3>{t.last_name}</h3></span >
+                            <span className='teacher_name_wrapper'>Teach Course: <h3>{t.course_name}</h3></span >
+                            <button onClick={deleteTeacher} id={t.teacher_uid}>delete teacher</button>
                         </li>
                     )
                 }): []}

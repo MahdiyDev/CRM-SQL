@@ -1,38 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './Modal.scss'
-import { url } from '../../assets/url';
+import useGroups from '../../Hooks/useGroups';
+import useUsers from '../../Hooks/useUsers';
 
 function Modal() {
-    const [groups, setGroups] = useState([])
+    const groups = useGroups('get')
     const [modal, setModal] = useState('modal-close')
-    let user = {}
+    const [setUserPost] = useUsers('post')
 
     const handleSubmit = () => {
         const inputs = document.querySelectorAll('.input') 
-        user = {
+        let user = {
             first_name: inputs[0].value,
             last_name: inputs[1].value,
             paid_price: !inputs[2].value.length || inputs[2].value==0  ? 0 : inputs[2].value,
             phone_number: inputs[3].value,
             group_id: inputs[4].value        
         }
-        fetch(`${url}users`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-        .then(res => res.json())
-        .catch(err => console.log(err))
+        setUserPost(user)
     }
-
-    useEffect(()=> {
-        fetch(`${url}groups`)
-        .then(res => res.json())
-        .then(data => setGroups(data))
-        .catch(err => console.log(err))
-    },[])
 
     return (
         <>

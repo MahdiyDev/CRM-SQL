@@ -1,37 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './TeacherModal.scss'
-import { url } from '../../assets/url';
+import useCourse from '../../Hooks/useCourse';
+import useTeachers from '../../Hooks/useTeachers';
 
 function TeacherModal() {
-    const [course, setCourse] = useState([])
+    const course = useCourse('get')
     const [modal, setModal] = useState('modal-close')
-    let user = {}
+    const [setTeacherPost] = useTeachers('post')
 
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
-        user = {
+        let teacher = {
             first_name: inputs[10].value,
             last_name: inputs[11].value,
             phone_number: inputs[12].value,
             course_uid: inputs[13].value        
         }
-        fetch(`${url}teachers`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-        .then(res => res.json())
-        .catch(err => console.log(err))
+        setTeacherPost(teacher)
     }
-
-    useEffect(()=> {
-        fetch(`${url}course`)
-        .then(res => res.json())
-        .then(data => setCourse(data))
-        .catch(err => console.log(err))
-    },[])
 
     return (
         <>

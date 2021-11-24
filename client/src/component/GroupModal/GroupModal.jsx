@@ -1,43 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './GroupModal.scss'
-import { url } from '../../assets/url';
+import useCourse from '../../Hooks/useCourse';
+import useTeachers from '../../Hooks/useTeachers';
+import useGroups from '../../Hooks/useGroups';
 
 function GroupModal() {
     const [modal, setModal] = useState('modal-close')
-    const [teacher, setTeacher] = useState([])
-    const [course, setCourse] = useState([])
-    let groups = {}
-
-    useEffect(()=> {
-        fetch(`${url}teachers`)
-        .then(res => res.json())
-        .then(data => setTeacher(data))
-        .catch(err => console.log(err))
-    },[])
-
-    useEffect(()=> {
-        fetch(`${url}course`)
-        .then(res => res.json())
-        .then(data => setCourse(data))
-        .catch(err => console.log(err))
-    },[])
+    const [setGroupsPost] = useGroups('post')
+    const course = useCourse('get')
+    const teacher = useTeachers('get')
 
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
-        groups = {
+        let groups = {
             group_name: inputs[7].value,
             group_teacher_id: inputs[8].value,
             group_course_id: inputs[9].value
         }
-        fetch(`${url}groups`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(groups)
-        })
-        .then(res => res.json())
-        .catch(err => console.log(err))
+        setGroupsPost(groups)
     }
 
     return (

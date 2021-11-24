@@ -1,28 +1,20 @@
 import { useState } from 'react';
 import './CourseModal.scss'
-import { url } from '../../assets/url';
+import useCourse from '../../Hooks/useCourse';
 
 function CourseModal() {
     const [modal, setModal] = useState('modal-close')
-    let course = {}
-
+    const [setCoursePost] = useCourse('post')
+    
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
-        course = {
+        let course = {
             course_name: inputs[5].value,
             course_price: inputs[6].value
         }
-        fetch(`${url}course`, {
-            method: "post",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(course)
-        })
-        .then(res => res.json())
-        .catch(err => console.log(err))
+        setCoursePost(course)
     }
-
+    
     return (
         <>
             <button onClick={()=>setModal('modal')}>Create Course</button>
