@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Modal.scss'
+import './UserModal.scss'
 import useGroups from '../../Hooks/useGroups';
 import useUsers from '../../Hooks/useUsers';
 
@@ -15,7 +15,7 @@ function Modal() {
             last_name: inputs[1].value,
             paid_price: !inputs[2].value.length || inputs[2].value==0  ? 0 : inputs[2].value,
             phone_number: inputs[3].value,
-            group_id: inputs[4].value        
+            users_group_id: inputs[4].value        
         }
         setUserPost(user)
     }

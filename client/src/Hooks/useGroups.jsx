@@ -9,10 +9,11 @@ function useGroups(params) {
         fetch(`${url}groups`)
         .then(res => res.json())
         .then(data => setGroups(data))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err)) 
     },[])
 
     useEffect(() => {
+        if (groupsPost) {
         fetch(`${url}groups`, {
             method: "post",
             headers: {
@@ -21,7 +22,8 @@ function useGroups(params) {
             body: JSON.stringify(groupsPost)
         })
         .then(res => res.json())
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))    
+        }
     }, [groupsPost])
 
     if (params === 'get') {

@@ -4,16 +4,17 @@ import { url } from "../assets/url";
 function useTeachers(params) {
     const [teacher, setTeacher] = useState([])
     const [teacherPost, setTeacherPost] = useState([])
-    const [teacherDelete, setTeacherDelete] = useState([])
+    const [teacherDelete, setTeacherDelete] = useState('')
 
     useEffect(()=> {
         fetch(`${url}teachers`)
         .then(res => res.json())
         .then(data => setTeacher(data))
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))    
     },[])
 
     useEffect(() => {
+        if (teacherPost) {
         fetch(`${url}teachers`, {
             method: "post",
             headers: {
@@ -22,10 +23,12 @@ function useTeachers(params) {
             body: JSON.stringify(teacherPost)
         })
         .then(res => res.json())
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))    
+        }
     }, [teacherPost])
 
     useEffect(() => {
+        if (teacherDelete) {
         fetch(`${url}teachers`, {
             method: "delete",
             headers: {
@@ -33,7 +36,8 @@ function useTeachers(params) {
             },
             body: JSON.stringify({teacher_uid: teacherDelete})
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))    
+        }
     }, [teacherDelete])
 
     if (params === 'get') {

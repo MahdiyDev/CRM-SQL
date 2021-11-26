@@ -7,13 +7,13 @@ route.get('/', async (req, res) => {
         const users = await pg(`SELECT *
         FROM users
         inner JOIN groups
-        ON users.group_id = groups.group_id
+        ON users.users_group_id = groups.group_id
         inner JOIN course
         ON groups.group_course_id = course.course_uid`)
         
-        res.json(users)
+        users.length ? res.json(users) : res.json({ message: "user not found" })
     } catch (e) {
-        res.json(e)
+        res.json({ message: e.message })
     }
 })
 
@@ -24,30 +24,39 @@ route.post('/', async (req, res) => {
             last_name,
             paid_price,
             phone_number,
-            group_id
+            users_group_id
         } = req.body
 
-        const newUser = await pg(`
-            insert into users(users_uid, first_name, last_name, paid_price, phone_number, group_id)
+        if (first_name && last_name && paid_price && phone_number && users_group_id) {
+            const newUser = await pg(`
+            insert into users(users_uid, first_name, last_name, paid_price, phone_number, users_group_id)
             values (uuid_generate_v4(), $1, $2, $3, $4, $5)
             returning *
-        `, first_name, last_name, paid_price, phone_number, group_id)
-
-        res.json(newUser)
+            `, first_name, last_name, paid_price, phone_number, users_group_id)
+            res.json(newUser)
+        }
+        else {
+            res.json({ message: "user not created" })
+        }
     } catch (error) {
-        res.json(error)
+        res.json({ message: error.message })
     }
 })
 
 route.delete('/', async (req, res) => {
     try {
         const { users_uid } = req.body
-        const deleteUser = await pg(`
+        if (users_uid) {
+            const deleteUser = await pg(`
             delete from users where users_uid = $1 returning *
-        `, users_uid)
-        res.json(deleteUser)
+            `, users_uid)
+            res.json(deleteUser)
+        }
+        else {
+            res.json({ message: "user not deleted" })
+        }
     } catch (error) {
-        res.json(error)
+        res.json({ message: error.message })
     }
 })
 

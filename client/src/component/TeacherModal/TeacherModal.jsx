@@ -7,14 +7,13 @@ function TeacherModal() {
     const course = useCourse('get')
     const [modal, setModal] = useState('modal-close')
     const [setTeacherPost] = useTeachers('post')
-
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
         let teacher = {
             first_name: inputs[10].value,
             last_name: inputs[11].value,
             phone_number: inputs[12].value,
-            course_uid: inputs[13].value        
+            teacher_course_uid: inputs[13].value        
         }
         setTeacherPost(teacher)
     }

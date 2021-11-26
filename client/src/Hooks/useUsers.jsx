@@ -4,7 +4,7 @@ import { url } from "../assets/url";
 function useUsers(params) {
     const [user, setUser] = useState([])
     const [userPost, setUserPost] = useState([])
-    const [userDelete, setUserDelete] = useState([])
+    const [userDelete, setUserDelete] = useState('')
 
     useEffect(() => {
         fetch(`${url}users`)
@@ -14,6 +14,7 @@ function useUsers(params) {
     }, [])
 
     useEffect(() => {
+        if (userPost) {
         fetch(`${url}users`, {
             method: "post",
             headers: {
@@ -22,10 +23,12 @@ function useUsers(params) {
             body: JSON.stringify(userPost)
         })
         .then(res => res.json())
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))    
+        }
     }, [userPost])
 
     useEffect(() => {
+        if (userDelete) {
         fetch(`${url}users`, {
             method: "delete",
             headers: {
@@ -33,7 +36,8 @@ function useUsers(params) {
             },
             body: JSON.stringify({users_uid: userDelete})
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))    
+        }
     }, [userDelete])
 
     if (params === 'get') {

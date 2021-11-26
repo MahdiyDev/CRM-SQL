@@ -4,9 +4,9 @@ const route = express.Router()
 
 route.get('/', async (req, res) => {
     try {
-        const course = await pg ('select * from course')
-
-        res.json(course)
+        const course = await pg (`select * from course`)
+        
+        course.length ? res.json(course) : res.json({ message: "course not found" })
     } catch (e) {
         res.json(e)
     }
@@ -16,26 +16,34 @@ route.post('/', async (req, res) => {
     try {
         const { course_name, course_price } = req.body
 
-        const newCourse = await pg(`
+        if (course_name && course_price) {
+            const newCourse = await pg(`
             insert into course(course_uid, course_name, course_price)
             values (uuid_generate_v4(), $1, $2) returning *
-        `, course_name, course_price)
+            `, course_name, course_price)
 
-        res.json(newCourse)
+            res.json(newCourse)
+        } else {
+            res.json({ message: "course not created" })
+        }
     } catch (error) {
-        res.json(error)
+        res.json({ message: error.message })
     }
 })
 
-route.delete('/', async (req, res) => {
+route.delete('/:id', async (req, res) => {
     try {
-        const { course_uid } = req.body
-        const deleteCourse = await pg(`
+        const { id } = req.params
+        if (id) {
+            const deleteCourse = await pg(`
             delete from course where course_uid = $1 returning *
-        `, course_uid)
-        res.json(deleteCourse)
+            `, id)
+            res.json(deleteCourse)
+        } else {
+            res.json({ message: 'course not deleted' })
+        }
     } catch (error) {
-        res.json(error)
+        res.json({ message: error.message })
     }
 })
 

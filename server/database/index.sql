@@ -13,13 +13,14 @@ create table teachers(
     first_name varchar(50) not null,
     last_name varchar(50) not null,
     phone_number bigint not null,
-    course_uid UUID references course(course_uid)
+    teacher_course_uid UUID references course(course_uid)
 );
 
 create table groups(
     group_id UUID not null primary key,
     group_name text not null,
-    group_teacher_id UUID references teachers(teacher_uid)
+    group_teacher_id UUID references teachers(teacher_uid),
+    group_course_id UUID references course(course_uid)
 );
 
 create table users(
@@ -28,7 +29,7 @@ create table users(
     last_name varchar(50) not null,
     paid_price bigint default 0,
     phone_number bigint not null,
-    group_id UUID references groups(group_id)
+    users_group_id UUID references groups(group_id)
 );
 
 insert into course(course_uid, course_name, course_price)

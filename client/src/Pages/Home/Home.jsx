@@ -1,5 +1,5 @@
 import './Home.scss'
-import Modal from '../../component/Modal/Modal'
+import UserModal from '../../component/UserModal/UserModal'
 import CourseModal from '../../component/CourseModal/CourseModal'
 import GroupModal from '../../component/GroupModal/GroupModal'
 import TeacherModal from '../../component/TeacherModal/TeacherModal'
@@ -16,7 +16,7 @@ function Home() {
 
     return (
         <div className='home'>
-            <Modal />
+            <UserModal />
             <CourseModal />
             <GroupModal />
             <TeacherModal />
