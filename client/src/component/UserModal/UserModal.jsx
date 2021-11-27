@@ -9,20 +9,20 @@ function Modal() {
     const [setUserPost] = useUsers('post')
 
     const handleSubmit = () => {
-        const inputs = document.querySelectorAll('.input') 
+        const inputs = document.querySelectorAll('.input')
         let user = {
-            first_name: inputs[0].value,
-            last_name: inputs[1].value,
-            paid_price: !inputs[2].value.length || inputs[2].value==0  ? 0 : inputs[2].value,
-            phone_number: inputs[3].value,
-            users_group_id: inputs[4].value        
+            first_name: inputs[9].value,
+            last_name: inputs[10].value,
+            paid_price: !inputs[11].value.length || inputs[11].value==0  ? 0 : inputs[11].value,
+            phone_number: inputs[12].value,
+            users_group_id: inputs[13].value        
         }
         setUserPost(user)
     }
 
     return (
         <>
-        <button onClick={()=>{setModal('modal')}}>Create User</button>
+        <button onClick={()=>{setModal('modal')}} className='btn'>Create User</button>
         <div className={modal} onClick={(e)=>e.target.classList.value === 'modal' ? setModal('modal-close') : ''}>
             <div className="crate-modal">
                 <form 

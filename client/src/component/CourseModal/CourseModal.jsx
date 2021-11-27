@@ -9,15 +9,15 @@ function CourseModal() {
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
         let course = {
-            course_name: inputs[5].value,
-            course_price: inputs[6].value
+            course_name: inputs[0].value,
+            course_price: inputs[1].value
         }
         setCoursePost(course)
     }
     
     return (
         <>
-            <button onClick={()=>setModal('modal')}>Create Course</button>
+            <button onClick={()=>setModal('modal')} className='btn'>Create Course</button>
             <div className={modal} onClick={(e) => e.target.classList.value === 'modal' ? setModal('modal-close') : ''}>
                 <div className="crate-modal">
                     <form className="form" onSubmit={handleSubmit}>

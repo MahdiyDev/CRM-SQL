@@ -10,17 +10,17 @@ function TeacherModal() {
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
         let teacher = {
-            first_name: inputs[10].value,
-            last_name: inputs[11].value,
-            phone_number: inputs[12].value,
-            teacher_course_uid: inputs[13].value        
+            first_name: inputs[2].value,
+            last_name: inputs[3].value,
+            phone_number: inputs[4].value,
+            teacher_course_uid: inputs[5].value        
         }
         setTeacherPost(teacher)
     }
 
     return (
         <>
-        <button onClick={()=>{setModal('modal')}}>Create Teacher</button>
+        <button onClick={()=>{setModal('modal')}} className='btn'>Create Teacher</button>
         <div className={modal} onClick={(e)=>e.target.classList.value === 'modal' ? setModal('modal-close') : ''}>
             <div className="crate-modal">
                 <form 

@@ -4,7 +4,7 @@ const route = express.Router()
 
 route.get('/', async (req, res) => {
     try {
-        const course = await pg (`select * from course`)
+        const course = await pg (`select * from courses`)
         
         course.length ? res.json(course) : res.json({ message: "course not found" })
     } catch (e) {
@@ -18,7 +18,7 @@ route.post('/', async (req, res) => {
 
         if (course_name && course_price) {
             const newCourse = await pg(`
-            insert into course(course_uid, course_name, course_price)
+            insert into courses(course_uid, course_name, course_price)
             values (uuid_generate_v4(), $1, $2) returning *
             `, course_name, course_price)
 
@@ -36,7 +36,7 @@ route.delete('/:id', async (req, res) => {
         const { id } = req.params
         if (id) {
             const deleteCourse = await pg(`
-            delete from course where course_uid = $1 returning *
+            delete from courses where course_uid = $1 returning *
             `, id)
             res.json(deleteCourse)
         } else {

@@ -2,7 +2,7 @@ create database crm;
 
 create extension if not exists "uuid-ossp";
 
-create table course(
+create table courses(
     course_uid UUID not null primary key,
     course_name text not null,
     course_price bigint not null
@@ -13,14 +13,23 @@ create table teachers(
     first_name varchar(50) not null,
     last_name varchar(50) not null,
     phone_number bigint not null,
-    teacher_course_uid UUID references course(course_uid)
+    teacher_course_uid UUID default null,
+    foreign key(teacher_course_uid)
+        references courses(course_uid)
+            on delete cascade
 );
 
 create table groups(
     group_id UUID not null primary key,
     group_name text not null,
-    group_teacher_id UUID references teachers(teacher_uid),
-    group_course_id UUID references course(course_uid)
+    group_teacher_id UUID default null,
+    group_course_id UUID default null,
+    foreign key(group_teacher_id)
+        references teachers(teacher_uid)
+            on delete cascade,
+    foreign KEY(group_course_id) 
+        references courses(course_uid)
+            on delete cascade
 );
 
 create table users(
@@ -29,7 +38,10 @@ create table users(
     last_name varchar(50) not null,
     paid_price bigint default 0,
     phone_number bigint not null,
-    users_group_id UUID references groups(group_id)
+    users_group_id UUID default null,
+    foreign key(users_group_id)
+        references groups(group_id)
+            on delete cascade
 );
 
 insert into course(course_uid, course_name, course_price)

@@ -8,8 +8,8 @@ route.get('/', async (req, res) => {
         FROM users
         inner JOIN groups
         ON users.users_group_id = groups.group_id
-        inner JOIN course
-        ON groups.group_course_id = course.course_uid`)
+        inner JOIN courses
+        ON groups.group_course_id = courses.course_uid`)
         
         users.length ? res.json(users) : res.json({ message: "user not found" })
     } catch (e) {
@@ -26,8 +26,7 @@ route.post('/', async (req, res) => {
             phone_number,
             users_group_id
         } = req.body
-
-        if (first_name && last_name && paid_price && phone_number && users_group_id) {
+        if (first_name && last_name && phone_number && users_group_id) {
             const newUser = await pg(`
             insert into users(users_uid, first_name, last_name, paid_price, phone_number, users_group_id)
             values (uuid_generate_v4(), $1, $2, $3, $4, $5)

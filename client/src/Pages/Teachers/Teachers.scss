@@ -2,11 +2,12 @@
     margin-top: 20px;
 }
 .teacher_title {
+    margin-top: 50px;
     text-align: center;
 }
 
 .teacher_list {
-    max-width: 1180px;
+    max-width: 100%;
     min-width: 650px;
     margin: 0;
     padding: 0;
@@ -31,7 +32,6 @@
     align-items: center;
     margin: 10px 0;
     h3 {
-        margin: 0;
-        margin-left: 5px;
+        margin: 0 5px;
     }
 }

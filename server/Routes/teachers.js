@@ -3,30 +3,12 @@ const express = require('express')
 const route = express.Router()
 
 route.get('/', async (req, res) => {
-    let newTeacher = []
     try {
         const teachers = await pg(`
             select * from teachers
-            inner join course
-            on teachers.teacher_course_uid = course.course_uid
-            inner join groups
-            on teachers.teacher_uid = groups.group_teacher_id
+            inner join courses
+            on teachers.teacher_course_uid = courses.course_uid
         `)
-        for (let i = 0; i < teachers.length; i++) {
-           for (let j = 0; j < teachers.length; j++) {
-            const firstEl = teachers[i]
-            const secondEl = teachers[i + j]
-            newTeacher.push({
-                teacher_uid: firstEl.teacher_uid,
-                first_name: firstEl.first_name,
-                last_name: firstEl.last_name,
-                phone_number: firstEl.phone_number,
-                course_name: firstEl.course_name,
-                course_price: firstEl.course_price,
-                group_name: firstEl.teacher_uid === secondEl.teacher_uid ? [firstEl.group_name, secondEl.group_name] : firstEl.group_name
-            })
-           }
-        }
 
         teachers.length ? res.json(teachers) : res.json({ message: "teachers not found" })
     } catch (e) {

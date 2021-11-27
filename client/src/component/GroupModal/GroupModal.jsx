@@ -13,16 +13,16 @@ function GroupModal() {
     const handleSubmit = (e) => {
         const inputs = document.querySelectorAll('.input') 
         let groups = {
-            group_name: inputs[7].value,
-            group_teacher_id: inputs[8].value,
-            group_course_id: inputs[9].value
+            group_name: inputs[6].value,
+            group_teacher_id: inputs[7].value,
+            group_course_id: inputs[8].value
         }
         setGroupsPost(groups)
     }
 
     return (
         <>
-            <button onClick={()=>setModal('modal')}>Create Group</button>
+            <button onClick={()=>setModal('modal')} className='btn'>Create Group</button>
             <div className={modal} onClick={(e) => e.target.classList.value === 'modal' ? setModal('modal-close') : ''}>
                 <div className="crate-modal">
                     <form className="form" onSubmit={handleSubmit}>
