@@ -15,4 +15,7 @@ With visibility and easy access to data, it's easier to collaborate and increase
 
 # My CRM preview
 
-![alt text](./server/img_for_readme/img.JPG)
+![alt text](./server/images/UI_1.JPG)
+![alt text](./server/images/UI_2.JPG)
+![alt text](./server/images/UI_3.JPG)
+![alt text](./server/images/UI_4.JPG)
