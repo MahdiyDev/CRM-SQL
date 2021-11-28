@@ -13,6 +13,12 @@ A CRM system gives everyone — from sales, customer service, business developme
 
 With visibility and easy access to data, it's easier to collaborate and increase productivity. Everyone in your company can see how customers have been communicated with, what they’ve bought, when they last purchased, what they paid, and so much more. CRM can help companies of all sizes drive business growth, and it can be especially beneficial to a small business, where teams often need to find ways to do more with less.
 
+# What is new!!!
+
+- UI design more confortable
+- Bugs fixed
+- Performance is even higher
+
 # My CRM preview
 
 ![alt text](./server/images/UI_1.JPG)
