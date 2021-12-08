@@ -32,7 +32,7 @@ function GroupModal() {
                         <select name='group_teacher_id' className='input' id='teacher'>
                             {teacher.length ? teacher.map(t => {
                                 return (
-                                    <option value={t.teacher_uid} key={t.first_name}>{t.first_name} {t.last_name}</option>
+                                    <option value={t.teachers.teacher_uid} key={t.teachers.first_name}>{t.teachers.first_name} {t.teachers.last_name}</option>
                                     )
                                 }):[]}
                         </select>

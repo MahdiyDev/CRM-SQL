@@ -4,6 +4,7 @@ import { url } from "../assets/url";
 function useUsers(params) {
     const [user, setUser] = useState([])
     const [userPost, setUserPost] = useState([])
+    const [userUpdate, setUserUpdate] = useState([])
     const [userDelete, setUserDelete] = useState('')
 
     useEffect(() => {
@@ -14,7 +15,7 @@ function useUsers(params) {
     }, [])
 
     useEffect(() => {
-        if (userPost) {
+        if (userPost.length) {
         fetch(`${url}users`, {
             method: "post",
             headers: {
@@ -26,6 +27,21 @@ function useUsers(params) {
         .catch(err => console.log(err))    
         }
     }, [userPost])
+
+    useEffect(() => {
+        // console.log(userUpdate);
+        if (userUpdate) {
+        fetch(`${url}users`, {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userUpdate)
+        })
+        .then(res => res.json())
+        .catch(err => console.log(err))    
+        }
+    }, [userUpdate])
 
     useEffect(() => {
         if (userDelete) {
@@ -45,6 +61,9 @@ function useUsers(params) {
     } 
     if (params === 'post') {
         return [setUserPost]
+    } 
+    if (params === 'update') {
+        return [setUserUpdate]
     } 
     if (params === 'delete') {
         return [setUserDelete]

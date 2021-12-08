@@ -3,6 +3,7 @@ const express = require('express')
 const route = express.Router()
 
 route.get('/', async (req, res) => {
+    let groupArr = []
     try {
         const teachers = await pg(`
             select * from teachers
@@ -10,7 +11,21 @@ route.get('/', async (req, res) => {
             on teachers.teacher_course_uid = courses.course_uid
         `)
 
-        teachers.length ? res.json(teachers) : res.json({ message: "teachers not found" })
+        for (let i = 0; i < teachers.length; i++) {
+            const teachersGroups = await pg(`
+                select group_id, group_name from teachers 
+                inner join groups
+                on teachers.teacher_uid = groups.group_teacher_id
+                where teacher_uid = $1
+            `, teachers[i].teacher_uid)
+
+            groupArr.push({
+                teachers: teachers[i],
+                groupArr: teachersGroups
+            });
+        }
+
+        groupArr.length ? res.json(groupArr) : res.json({ message: "teachers not found" })
     } catch (e) {
         res.json(e)
     }

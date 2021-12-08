@@ -7,7 +7,7 @@ function CourseModal() {
     const [setCoursePost] = useCourse('post')
     
     const handleSubmit = (e) => {
-        const inputs = document.querySelectorAll('.input') 
+        const inputs = document.querySelectorAll('.input')
         let course = {
             course_name: inputs[0].value,
             course_price: inputs[1].value

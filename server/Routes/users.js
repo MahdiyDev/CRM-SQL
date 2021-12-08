@@ -42,6 +42,30 @@ route.post('/', async (req, res) => {
     }
 })
 
+route.put('/', async (req, res) => {
+    try {
+        const {
+            users_uid,
+            first_name,
+            last_name,
+            paid_price,
+            phone_number,
+            users_group_id
+        } = req.body
+
+        const updatedUser = await pg(`
+            update users
+            set first_name = $1, last_name = $2, paid_price = $3, phone_number = $4, users_group_id = $5
+            where users_uid = $6 
+            returning *
+        `, first_name, last_name, paid_price, phone_number, users_group_id, users_uid)
+
+        res.json(updatedUser)
+    } catch (error) {
+        res.json({ message: 'user not Updated' })
+    }
+})
+
 route.delete('/', async (req, res) => {
     try {
         const { users_uid } = req.body

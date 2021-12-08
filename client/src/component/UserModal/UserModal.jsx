@@ -13,7 +13,7 @@ function Modal() {
         let user = {
             first_name: inputs[9].value,
             last_name: inputs[10].value,
-            paid_price: !inputs[11].value.length || inputs[11].value==0  ? 0 : inputs[11].value,
+            paid_price: !inputs[11].value.length || inputs[11].value === "0"  ? 0 : inputs[11].value,
             phone_number: inputs[12].value,
             users_group_id: inputs[13].value        
         }
