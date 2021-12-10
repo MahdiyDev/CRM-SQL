@@ -28,8 +28,7 @@ function Home() {
             phone_number: inputs[17].value,
             users_group_id: inputs[18].value        
         }
-
-
+        
         setUserUpdate(user)
     }
 

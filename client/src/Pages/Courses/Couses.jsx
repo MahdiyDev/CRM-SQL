@@ -18,6 +18,7 @@ function Courses() {
                     return (
                         <li key={c.course_name} className='course_item teacher_item'>
                             <span className='teacher_name_wrapper'>Course Name: <h3>{c.course_name}</h3></span >
+                            <span className='teacher_name_wrapper'>Course Price: <h3>{c.course_price}</h3></span >
                             <button onClick={deleteCourse} id={c.course_uid} className='btn'>delete course</button>
                         </li>
                     )

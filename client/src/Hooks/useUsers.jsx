@@ -15,7 +15,7 @@ function useUsers(params) {
     }, [])
 
     useEffect(() => {
-        if (userPost.length) {
+        if (userPost) {
         fetch(`${url}users`, {
             method: "post",
             headers: {
@@ -29,7 +29,6 @@ function useUsers(params) {
     }, [userPost])
 
     useEffect(() => {
-        // console.log(userUpdate);
         if (userUpdate) {
         fetch(`${url}users`, {
             method: "put",

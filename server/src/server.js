@@ -9,16 +9,16 @@ app.use(cors())
 app.use(bodyParser.json())
 
 // Import Routes
-const usersRoute = require('../routes/users')
-const groupsRoute = require('../routes/groups')
-const courseRoute = require('../routes/course')
-const teachersRoute = require('../routes/teachers')
+const usersRoute = require('../routes/Users')
+const groupsRoute = require('../Routes/Groups')
+const courseRoute = require('../Routes/Courses')
+const teachersRoute = require('../routes/Teachers')
 
 // Routes
-app.use('/users', usersRoute)
-app.use('/groups', groupsRoute)
-app.use('/course', courseRoute)
-app.use('/teachers', teachersRoute)
+app.use(usersRoute)
+   .use(groupsRoute)
+   .use(courseRoute)
+   .use(teachersRoute)
 
 app.listen(process.env.PORT, () => {
     console.log(`server running on http://${process.env.IPADRESS}:${process.env.PORT}`);
